@@ -9,6 +9,7 @@ import { playerAvatar } from '~/lib/util';
 import { useWindowDimensions } from '~/lib/windowDimensions';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const { width } = useWindowDimensions();
@@ -116,7 +117,7 @@ function UserCard({ username, bio, imageUrl }: UserCardProps) {
   const avatarUrl = imageUrl ?? playerAvatar(username);
 
   return (
-    <a href={`/profile/${username}`}>
+    <Link href={`/profile/${username}`}>
       <Card className="bg-zinc-800 flex items-center rounded-lg border-none hover:bg-zinc-700">
         <Image
           className="w-10 h-10 rounded-md ml-4"
@@ -132,6 +133,6 @@ function UserCard({ username, bio, imageUrl }: UserCardProps) {
           <p className="text-zinc-400 text:xs md:text-sm">{bio}</p>
         </CardContent>
       </Card>
-    </a>
+    </Link>
   );
 }
