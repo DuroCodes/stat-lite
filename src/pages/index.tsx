@@ -6,7 +6,7 @@ import { FaDiscord, FaGithub, FaMagnifyingGlass } from 'react-icons/fa6';
 import useWindowDimensions from '~/lib/utils';
 
 export default function Home() {
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   let users: UserCardProps[] = [
     {
