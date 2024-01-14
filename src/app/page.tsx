@@ -7,6 +7,8 @@ import { Input } from '~/components/ui/input';
 import { FaDiscord, FaGithub, FaMagnifyingGlass } from 'react-icons/fa6';
 import { playerAvatar } from '~/lib/util';
 import { useWindowDimensions } from '~/lib/windowDimensions';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const { width } = useWindowDimensions();
@@ -83,18 +85,24 @@ export default function Home() {
 }
 
 function SearchCard() {
+  const [username, setUsername] = useState('');
+  const router = useRouter();
+
   return (
-    <form className="flex flex-col space-y-4">
+    <form className="flex flex-col space-y-4" onSubmit={(e) => {
+      e.preventDefault();
+      router.push(`/profile/${username}`);
+    }}>
       <Input
         className="bg-zinc-700 border-none text-white"
-        id="minecraft-username"
         placeholder="Enter username"
+        onChange={(e) => setUsername(e.target.value)}
       />
-      <Button className="bg-sky-600 hover:bg-sky-700">
+      <Button type="submit" className="bg-sky-600 hover:bg-sky-700">
         <FaMagnifyingGlass className="w-4 h-4 mr-2" />
         Search
       </Button>
-    </form>
+    </form >
   );
 }
 
