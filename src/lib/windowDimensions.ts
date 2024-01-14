@@ -1,14 +1,6 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { useEffect, useState } from 'react';
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-import { useState, useEffect } from 'react';
-
-export default function useWindowDimensions() {
-
+export function useWindowDimensions() {
   const hasWindow = typeof window !== 'undefined';
 
   function getWindowDimensions() {
@@ -31,7 +23,7 @@ export default function useWindowDimensions() {
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasWindow]);
 
   return windowDimensions;
