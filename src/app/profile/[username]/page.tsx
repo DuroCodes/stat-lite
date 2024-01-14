@@ -35,7 +35,36 @@ export default async function UserProfile({ params: { username } }: { params: { 
       </div>
 
       <div className="grid grid-cols-1 gap-4 pb-4 sm:justify-normal sm:w-3/4 sm:grid-cols-2 md:w-11/12">
-        <TopRowCard data={data} />
+        <Card className="bg-zinc-800 items-center rounded-lg border-none text-white sm:col-span-2">
+          <CardContent className="grid grid-cols-1 gap-y-2 gap-x-12 p-6 sm:grid-cols-3">
+            <div className="flex flex-col gap-1 border-b border-b-zinc-600 pb-2 sm:border-none">
+              <h3 className="font-bold text-center sm:text-lg sm:text-left">Solo</h3>
+              <ModeStats data={data} mode="solo" />
+            </div>
+            <div className="flex flex-col gap-1 border-b border-b-zinc-600 pb-2 sm:border-none">
+              <h3 className="font-bold text-center sm:text-lg sm:text-left">Civilization</h3>
+              <ModeStats data={data} mode="civ" />
+            </div>
+            <div className="flex flex-col gap-1">
+              <h3 className="font-bold text-center sm:text-lg sm:text-left">Misc</h3>
+              <p className="flex items-center gap-2 my-0">
+                <FaBookOpen />
+                <span className="flex-grow font-medium">Legend Crafts</span>
+                <span>{data.total.legendaryWeaponsCrafted}</span>
+              </p>
+              <p className="flex items-center gap-2 my-0">
+                <LuSword className="fill-white" />
+                <span className="flex-grow font-medium">Legend Kills</span>
+                <span>{data.total.legendaryWeaponKills}</span>
+              </p>
+              <p className="flex items-center gap-2 my-0">
+                <FaClock />
+                <span className="flex-grow font-medium">Avg Survival</span>
+                <span>{timestamp(`0:${data.total.averageTimeSurvived}`)}</span>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
         <Card className="bg-zinc-800 items-center rounded-lg border-none text-white">
           <CardContent className="grid grid-cols-1 gap-x-12 gap-y-0.5 p-6 sm:grid-cols-2">
             <h3 className="font-bold text-center sm:col-span-2 sm:text-lg sm:text-left">Warrior</h3>
@@ -100,41 +129,6 @@ function ModeStats({ data, mode }: { data: RoyaleStats; mode: 'solo' | 'civ'; })
         <span>{timestamp(data[mode].playtime)}</span>
       </p>
     </>
-  );
-}
-
-function TopRowCard({ data }: { data: RoyaleStats; }) {
-  return (
-    <Card className="bg-zinc-800 items-center rounded-lg border-none text-white sm:col-span-2">
-      <CardContent className="grid grid-cols-1 gap-y-2 gap-x-12 p-6 sm:grid-cols-3">
-        <div className="flex flex-col gap-1 border-b border-b-zinc-600 pb-2 sm:border-none">
-          <h3 className="font-bold text-center sm:text-lg sm:text-left">Solo</h3>
-          <ModeStats data={data} mode="solo" />
-        </div>
-        <div className="flex flex-col gap-1 border-b border-b-zinc-600 pb-2 sm:border-none">
-          <h3 className="font-bold text-center sm:text-lg sm:text-left">Civilization</h3>
-          <ModeStats data={data} mode="civ" />
-        </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="font-bold text-center sm:text-lg sm:text-left">Misc</h3>
-          <p className="flex items-center gap-2 my-0">
-            <FaBookOpen />
-            <span className="flex-grow font-medium">Legend Crafts</span>
-            <span>{data.total.legendaryWeaponsCrafted}</span>
-          </p>
-          <p className="flex items-center gap-2 my-0">
-            <LuSword className="fill-white" />
-            <span className="flex-grow font-medium">Legend Kills</span>
-            <span>{data.total.legendaryWeaponKills}</span>
-          </p>
-          <p className="flex items-center gap-2 my-0">
-            <FaClock />
-            <span className="flex-grow font-medium">Avg Survival</span>
-            <span>{timestamp(`0:${data.total.averageTimeSurvived}`)}</span>
-          </p>
-        </div>
-      </CardContent>
-    </Card>
   );
 }
 
