@@ -3,9 +3,12 @@ import { Button } from '~/components/ui/button';
 import { Card, CardContent } from '~/components/ui/card';
 import { Input } from '~/components/ui/input';
 import { FaDiscord, FaGithub, FaMagnifyingGlass } from 'react-icons/fa6';
+import useWindowDimensions from '~/lib/utils';
 
 export default function Home() {
-  const users: UserCardProps[] = [
+  const { width, height } = useWindowDimensions();
+
+  let users: UserCardProps[] = [
     {
       username: '_Duro_',
       bio: '...',
@@ -42,7 +45,9 @@ export default function Home() {
       username: 'Technoblade',
       bio: '...'
     }
-  ] as const;
+  ];
+
+  if (width && width < 640) users = users.slice(0, 8);
 
   return (
     <div className="bg-zinc-900 text-white min-h-screen">
@@ -69,13 +74,13 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          
-          <div className="w-full col-span-2 grid grid-cols-2 gap-4 grid-rows-4 sm:grid-rows-3 sm:grid-cols-3 sm:col-span-3">
+
+          <div className="w-full col-span-2 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:col-span-3">
             {users.map((user) => <UserCard key={user.username} {...user} />)}
           </div>
         </div>
-      </main >
-    </div >
+      </main>
+    </div>
   );
 }
 
